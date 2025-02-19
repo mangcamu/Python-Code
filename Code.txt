@@ -1,0 +1,76 @@
+#Question 4
+def magic(n):
+	for i in range (1-n+1):
+		cube = i ** 3
+		if cube == n:
+			return True
+		elif cube > n:
+			return False
+		return False
+
+n =132651201231
+print("Yes" if magic(n) else "No")
+
+#Question 5
+def find_duplicates(outcomes):
+    counts = {}  # Dictionary to store the count of each outcome
+    for outcome in outcomes:
+        counts[outcome] = counts.get(outcome, 0) + 1
+
+    return [outcome for outcome, count in counts.items() if count == 2]
+
+
+
+outcomes1 = [1234567, 1234567, 2345678, 2345678, 3456789, 3456789, 1234567, 2345678, 3456789, 4567890, 4567890, 5678901, 5678901, 6789012, 6789012, 1234567, 2345678, 3456789, 4567890, 5678901, 4567890, 5678901]
+print(find_duplicates(outcomes1)) 
+
+#Question 6
+def reformat_string(s):
+    result = []
+    upper = True  # Start with uppercase
+    for char in s:
+        if char.isalpha():
+            if upper:
+                result.append(char.upper())
+            else:
+                result.append(char.lower())
+            upper = not upper  # Toggle case for the next alphabetical character
+        else:
+            result.append(char)  # Keep non-alphabetical characters as they are
+
+    return "".join(result)
+
+
+s = input("Enter a string: ") 
+
+reformatted_s = reformat_string(s) # Reformat the string
+print(reformatted_s)
+
+#Question 7
+from collections import Counter
+
+def can_organize_books(shelf):
+    counts = Counter(shelf)  # Count occurrences of each book type
+
+    for count in counts.values():
+        if count == 1:  # If any book has only one copy, it can't be in a set
+            return "NO"
+        
+        # Check if the count can be divided into sets of size > 1
+        possible = False
+        for set_size in range(2, count + 1):  # Iterate through possible set sizes
+            if count % set_size == 0:
+                possible = True
+                break
+        if not possible:
+            return "NO"
+
+    return "YES"
+
+# Get the input array from the user
+shelf_str = input("Enter book copies as a list (e.g., [2,2,3,3,3]): ")
+shelf = [int(x) for x in shelf_str[1:-1].split(',')]  # Convert string to list of integers
+
+# Check and print the result
+result = can_organize_books(shelf)
+print(result)
